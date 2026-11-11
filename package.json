@@ -1,0 +1,1 @@
+{"name":"creatoros-workspace","private":true,"version":"2.0.0","scripts":{"dev":"python app/server.py --no-browser","test":"python -m unittest discover -s tests -v"}}
