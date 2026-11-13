@@ -1,3 +1,13 @@
+## 分析工作台与模型接入
+
+现有展示链接保持不变。新增证据包、多维贡献、发布/触达对称分解、原因假设、行动验收和浏览器内日指标导入。完整产品方案见docs/07_产品方案与验收.md。
+
+模型工具调用实现位于model_service.py（本地Python）和cloud/worker.js（托管Worker）。密钥仅由运行时环境注入。服务需要OPENAI_API_KEY、CREATOR_ACCESS_CODE，可选OPENAI_MODEL；不能把这些值写进前端或仓库。本地运行：python model_service.py --env-file <已确认的私有环境文件>。
+
+当前真实验收：密钥鉴权HTTP200；Responses分析请求因credit_balance_exhausted返回429。尚未完成真实模型输出验收；测试中的模拟上游不代表真实调用成功。云端服务已部署但不配置密钥，明确返回503。
+
+---
+
 # CreatorOS 公开作品集部署版
 
 本仓库使用代码内的固定生成数据启动，不附带原本地数据库、运营反馈、导出记录、日志或密钥。

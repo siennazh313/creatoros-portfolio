@@ -13,6 +13,11 @@ class Handler(BaseHTTPRequestHandler):
         p=urlparse(self.path);q=parse_qs(p.query)
         try:
             params={k:v[0] for k,v in q.items()}
+            if p.path=='/api/analysis-dataset':
+                with connect() as c:
+                    data={name:workspace.rows(c,'SELECT * FROM '+name) for name in ['creators','accounts','metrics','contents','content_snapshots','comments','candidates','campaigns','heating','conversions']}
+                data['meta']=workspace.metadata()
+                return self.send(data)
             if p.path=='/api/meta':return self.send(workspace.metadata())
             if p.path in ('/api/dashboard','/api/countries','/api/commerce'):return self.send(workspace.dashboard(params))
             if p.path=='/api/contents':return self.send(workspace.content_detail(params))
